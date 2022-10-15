@@ -1,0 +1,669 @@
+# Hugo
+
+A fast static site generator built on Go.
+
+Turns html and markdown files into a website.
+
+<m>[Index]<>
+
+<m>[Basics]<>
+
+
+
+# Online Docs
+@
+@ online-docs-only, docs-only
+
+
+### Official Site
+<l>https://gohugo.io/<>
+
+
+### Official - Download
+<l>https://gohugo.io/<>
+
+
+### Official - Docs
+<l>https://gohugo.io/documentation/<>
+
+
+### Official - Themes
+<l>https://themes.gohugo.io/<>
+
+
+### Official - Source (Github)
+<l>https://github.com/gohugoio/hugo<>
+@
+@ github-only
+
+
+
+# Install
+@
+@ install-only
+
+
+### Install and Compile from Github
+
+<*>Clone Hugo Repo
+Install Libraries
+Compile<>
+
+Clone:
+
+<cb>git clone https://github.com/gohugoio/hugo.git hugo<>
+
+Install Libraries:
+
+<cb>cd hugo
+go install --tags extended<>
+
+Build:
+
+<cb>go build<>
+
+
+
+### Install from Homebrew
+
+<cb>brew install hugo<>
+
+
+
+# Fundamentals
+@
+@ fundamentals-only
+
+
+
+### Components
+
+7 Basic Components:
+
+<card>static
+content
+layouts
+data
+assets
+i18n
+archetypes<>
+
+
+### Configuration File
+
+Either of These:
+
+<cb>config.toml<>
+
+<cb>config.yaml<>
+
+
+Location:
+
+<cb><v>project<>/
+└── config.toml<>
+
+<cb><v>project<>/
+└── config.yaml<>
+
+
+
+### Directory - Site Structure
+
+<cb><v>project<>/
+│
+├─	config.toml
+│
+├─  archetypes/
+├─  assets/
+├─  content/
+├─  data/
+├─  layouts/
+├─  static/
+└─  themes/<>
+
+
+
+### Directory - Generated Content
+
+<cb>public<>
+
+Location:
+
+<cb><v>project<>/public<>
+
+
+
+### Live Reload
+
+Content is automatically reloaded when updated.
+
+
+
+### Local URL
+
+<cb><l>http://localhost:1313/<><>
+
+
+
+### Theme Directory
+
+<cb>themes<>
+
+Location:
+
+<cb><v>project<>/themes<>
+
+
+
+# Commands
+@
+@ cli
+@ command-only, commands-only, cli-only
+
+
+### Hugo - Create Site (Local)
+
+<cb>hugo new site <v>site_name<><>
+@
+@ new site
+
+
+
+### Hugo - Create Post
+
+<cb>hugo new post/<v>post_name<>.<v>extension<><>
+
+Adds a post with name and titel <c><v>post_title<><>.
+
+
+Extensions:
+
+<in><c>.html
+.md
+.rest
+.txt<><>
+@
+@ new post
+
+
+
+### Hugo - Build
+
+<cb>hugo -t <v>theme_name<><>
+
+Generates static content for all documents.
+
+
+Directory:
+
+<cb><v>project<>/public<>
+@
+@ compile content, public, -t
+
+
+
+### Hugo - Run Server
+
+<cb>hugo server<>
+
+URL:
+
+<cb><l>http://localhost:1313/<><>
+
+
+
+# Site Setup
+
+
+### Setup Items
+
+<*>Title<>
+
+<*>Site Icon<>
+
+<*>Site Menus<>
+
+<*>Site Theme<>
+
+
+
+# Site Config - Settings
+@
+@ configuration file, config.toml, config.yaml
+
+
+### Setting - Site Base URL
+
+config.toml:
+
+<cb>baseURL='<v>https://url.com<>/'<>
+@
+@ baseurl
+
+
+
+### Setting - Site Title
+
+config.toml:
+
+<cb>title='<v>Site Title<>'<>
+@
+@ name
+
+
+
+### Setting - Theme
+
+config.toml:
+
+<cb>theme='<v>theme_name<>'<>
+
+
+
+# Content File - Settings
+@
+@ metadata, front matter, attributes
+
+
+### Content Settings - Basics
+
+<cb>---
+title: "<v>title<>"
+date: <v>yyyy<>-<v>mm<>-<v>dd<>T<v>hh<>:<v>mm<>:<v>ss<>-<v>TT<>:00
+draft: true
+slug: <v>path-of-page<>
+---<>
+
+
+### Content Settings - Draft
+
+<cb>---]
+draft: true
+---<>
+
+This is not published by default.
+
+
+
+### Content Settings - Image
+
+<cb>---]
+image: <v>path<>/<v>image<>
+---<>
+
+
+
+### Content Settings - Slug
+
+<cb>---]
+slug: <v>url_path<>
+---<>
+
+Post url path.
+
+Use this to make a human readable url.
+
+
+
+### Content Settings - Tags
+
+<cb>---]
+tags: [tag-1, tag-2]
+---<>
+
+Adds tags to a document.
+
+Note: Tags is not a predefined metadata attribute
+@
+@ tags
+
+
+
+# Site Components
+@
+@ components-only, comp-only
+
+
+## Component Summary
+
+7 Basic Components:
+
+<card>archetypes
+assets
+content
+data
+i18n
+layouts
+static<>
+
+
+
+### Component - Archetypes
+Template files.
+
+Located in the directory <c>/archetypes<>.
+
+
+Example:
+
+
+<cb><v>project<>/
+└── archetypes/
+    ├── <v>post.md<>
+    └── <v>default.md<><>
+
+
+
+### Component - Assets
+Files that need to be processed by Hugo.
+
+Located in the directory <c>/assets<>.
+
+
+
+### Component - Content
+The files that will become the pages of the site.
+
+Located in the directory <c>/content<>.
+
+
+
+
+### Component - Data
+Configuration files to be used by Hugo to generate the site.
+
+These can be in YamL, JSON or TOML format.
+
+Located in the directory <c>/data<>.
+
+
+
+### Component - i18n
+Supports internationalization and translation.
+
+Located in the directory <c>/i18n<>.
+
+Docs: <l https://gohugo.io/categories/functions>functions<> - <l https://gohugo.io/functions/i18n/>i18n<>
+
+
+
+### Component - Layouts
+Templates that will be used views for the site.
+
+Includes: homepage, list pages, taxonomy, single page, and partial templates.
+
+Located in the directory <c>/layouts<>.
+
+
+
+### Component - Static
+These are files that are not to change.
+
+This can include javascript files, css, or static html pages.
+
+Located in the directory <c>/static<>.
+
+
+
+# How To
+@
+@ how-to-only
+
+
+
+### Theme - Add
+
+<*>Clone to Themes Directory
+Update config.toml<>
+
+
+Clone Theme:
+
+<cb>cd <v>project<>/themes
+
+git clone <v>theme_url<><>
+
+
+Update config.toml:
+
+<cb>theme='<v>theme_name<>'<>
+
+
+
+# Examples
+
+
+### Example Menu
+
+Add to Site Configuration File.
+
+config.yaml:
+
+<cb>menu:
+	main:
+		- identifier: posts
+			name: Posts
+			url: /post/
+			weight: 10
+		- identifier: categories
+			name: Categories
+			url: /categories/
+			weight: 20
+		- identifier: tags
+			name: Tags
+			url: /tags/
+			weight: 30
+		- identifier: <v>SpeedSheets<>
+			name: <v>SpeedSheets<>
+			url: <v>https://speedsheet.io<>
+			weight: 40<>
+
+Adds posts, catagories, and main website as menus.
+
+<in><table><col><c>name<> <><col>Display Name<>
+<col><c>weight<><><col>Menu position Relative to Others<><><>
+@
+@ menus
+
+
+
+# Metadata
+
+Applies to all document types (html, md).
+
+
+
+### Metadata - Metadata Section
+
+<cb>---
+<v>...<>
+---<>
+
+Place at the start of the document.
+
+Works for html or markdown.
+
+
+
+### Metadata - Title
+
+<cb>---
+<v>title: "<v>Page Title<>"<>
+---<>
+
+
+
+### Metadata - Date
+
+<cb>---
+<v>date: <v>yyyy<>-<v>mm<>-<v>dd<>T<v>hh<>:<v>mm<>:<v>ss<><s>[<>+<s>|<>-<s>]<><v>hh<>:<v>mm<><>
+---<>
+
+
+Example:
+
+<cb>---
+<v>date: <v>2001<>-<v>01<>-<v>01<>T<v>01<>:<v>02<>:<v>03<>-<v>04<>:<v>30<><>
+---<>
+@
+@ date, time, yyyy, mm, dd, hh, ss, time zone
+
+
+
+### Metadata - Catagories
+
+<cb>---
+<v>catagories: [<v>catagory_1<>, <v>catagory_2<>]<>
+---<>
+
+
+By convention only.
+
+
+Example:
+
+<cb>---
+<v>catagories: [examples, posts]<>
+---<>
+@
+@ catagory
+
+
+
+### Metadata - Tags
+
+<cb>---
+<v>tags: [markdown, example]<>
+---<>
+
+
+By convention only.
+
+
+Example:
+
+<cb>---
+<v>tags: <v>2001<>-<v>01<>-<v>01<>T<v>01<>:<v>02<>:<v>03<>-<v>04<>:<v>30<><>
+---<>
+
+
+
+### Metadata - Type
+
+<cb>---
+<v>type: <v>type<><>
+---<>
+
+
+Defines the content type.
+
+Not required.
+The content type can be inferred from the directory name.
+
+
+Example:
+
+<cb>---
+<v>type: <v>blog<><>
+---<>
+@
+@ content type
+
+
+# Markdown
+@
+@ markdown-only, md-only
+
+
+## Markdown - Syntax
+
+
+### Image With Caption
+
+<cb>{ {\< figure caption="<v>Image Caption<>" src="<v>image_url<>" >} }<>
+
+
+Note: Standard <c>![<v>Image Caption<>](<v>image_url<>)<> doesn't work
+(<m>Confirm this. May work but with no caption<>).
+
+
+
+## Markdown - Sample
+
+<cb>---
+title: "<v>Sample Title<>"
+date: <v>2001<>-<v>01<>-<v>01T<><v>01<>:<v>02<>:<v>03<><v>-04<>:<v>00<>
+tags: [markdown, sample]
+categories: [examples, posts]
+---
+\# <v>Post Heading<>
+
+Post text with **<b>bold text!<>**  
+
+
+
+\#\#\# <v>Sub-Section Heading<>
+
+Code Example:
+
+<c>```
+<in-2>list_1 = [0, 1, 2, 3, 4]
+
+value = list_1[1]
+
+<#>\# Returns 1<><>
+```<><>
+@
+@ example
+
+
+
+# Acronyms
+
+
+### GDPR
+General Data Protection Regulation (European Privacy Regulation)
+
+
+
+# Terms
+@
+@ terms-only
+
+
+
+### Content Section
+Defines the organization of the site and is based on the file structor.
+
+Top level folders in the <c>/content<> directory define the content section.
+
+Docs: <l https://gohugo.io/content-management/sections/>Content Sections<>
+
+
+
+### Content Type
+The type of the document (eg Blog).
+
+This can be determined by the directory name (/.../blog),
+or by the type attribute in the front matter (metadata) (type: blog).
+
+
+
+### Front Matter
+The metadata embedded in the start of document such as title, tags, ect.
+
+
+
+### Front Matter Attributes
+
+See: <l>https://gohugo.io/content-management/front-matter/<>
+
+
+
+### Taxonomy
+Hugo's system for creating custom catagories to classify content.
+
+See: <l>https://gohugo.io/content-management/taxonomies/<>
+
+
