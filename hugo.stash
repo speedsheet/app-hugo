@@ -121,6 +121,8 @@ Location:
 ├─  layouts/
 ├─  static/
 └─  themes/<>
+@
+@ directories, folders
 
 
 
@@ -131,6 +133,35 @@ Location:
 Location:
 
 <cb><v>project<>/public<>
+@
+@ directories, folders
+
+
+
+### Directory - Content
+
+<cb>content/
+└── <v>section<>/<>
+@
+@ directories, files, folders
+
+
+
+### Directory - Content Files
+
+<cb>content/
+│   
+├── _index.md
+├── <v>file_1.md<>
+├── <v>file_2.html<>
+│   
+└── <v>section<>/
+    │   
+    ├── _index.md
+    ├── <v>file_1.md<>
+    └── <v>file_2.html<><>
+@
+@ directories, files, folders
 
 
 
@@ -153,6 +184,8 @@ Content is automatically reloaded when updated.
 Location:
 
 <cb><v>project<>/themes<>
+@
+@ folder0
 
 
 
@@ -166,7 +199,13 @@ Location:
 
 <cb>hugo new site <v>site_name<><>
 @
-@ new site
+@ new site, project
+
+
+
+### Hugo - Create Page
+
+<cb>hugo new <v>section_name<>/<v>page_name<>.<v>format<><>
 
 
 
@@ -210,6 +249,33 @@ Directory:
 URL:
 
 <cb><l>http://localhost:1313/<><>
+@
+@ start, web
+
+
+
+### Hugo - Run Server - No Cache
+
+<cb>hugo server --noHTTPCache<>
+
+Prevents Hugo from caching Http content.
+@
+@ start, web, --nohttpcache, http, pages
+
+
+
+### Hugo - Run Server - Set Port
+
+<cb>hugo server -p <v>port_number<><>
+
+URL:
+
+<cb><l>http://localhost:<v>port_number<>/<><>
+
+
+-p | --port		Set the port number.
+@
+@ start, web, -p, --port
 
 
 
@@ -278,7 +344,7 @@ slug: <v>path-of-page<>
 
 ### Content Settings - Draft
 
-<cb>---]
+<cb>---
 draft: true
 ---<>
 
@@ -288,7 +354,7 @@ This is not published by default.
 
 ### Content Settings - Image
 
-<cb>---]
+<cb>---
 image: <v>path<>/<v>image<>
 ---<>
 
@@ -296,7 +362,7 @@ image: <v>path<>/<v>image<>
 
 ### Content Settings - Slug
 
-<cb>---]
+<cb>---
 slug: <v>url_path<>
 ---<>
 
@@ -308,7 +374,7 @@ Use this to make a human readable url.
 
 ### Content Settings - Tags
 
-<cb>---]
+<cb>---
 tags: [tag-1, tag-2]
 ---<>
 
@@ -363,10 +429,13 @@ Located in the directory <c>/assets<>.
 
 
 ### Component - Content
-The files that will become the pages of the site.
+Place markdown files here.
+
+The files that will be generated into site pages.
 
 Located in the directory <c>/content<>.
-
+@
+@ markdown, md, generate, generated
 
 
 
@@ -403,12 +472,164 @@ These are files that are not to change.
 This can include javascript files, css, or static html pages.
 
 Located in the directory <c>/static<>.
+@
+@ static content, html, css, javascript, js
+
+
+
+# Layouts
+
+
+### Layout Components
+
+List			List all the related content (eg blog index page)
+Single		Single piece of content (eg blog entry)
+@
+@ single, list
+
+
+
+### Layout - List
+
+Format:
+
+<cb>list.html<>
+
+Content File:
+
+<cb>_index.md<>
+
+
+Defines the template for the index page of a folder (or category).
+
+Renders the page '_index.md'.
+@
+@ _index.md, index.md, index.html, _index.html
+
+
+
+### Layout - Default Page Not Found / 404
+
+<cb>/layouts/404.html<>
+
+Defines the default page not found response.
+@
+@ 404.html, page not found
 
 
 
 # How To
 @
 @ how-to-only
+
+
+
+### HTML - Include
+
+Create a shortcut for html and include it in your page.
+
+See: HTML Shortcut - Create (below)
+
+
+
+### HTML Shortcut - Create
+
+<*>Create Shortcut
+Include Shortcut in Page<>
+
+
+
+Create Shortcut:
+
+Folder:
+
+<cb>/layouts/shortcodes/raw-html.html<>
+
+Contents:
+
+<cb>{{ .Inner }}<>
+
+
+Include HTML Shortcut:
+
+<cb>{{\< raw-html >}}
+	<v>html goes here<>
+{{\< /raw-html>}}<>
+@
+@ section
+
+
+
+### List - Show Comma Separated Items
+
+<cb>{{ range $index, $item := .<v>list<> }}{{- if $index -}}, {{ end -}}{{ $item }}{{ end }}<>
+@
+@ , 
+
+
+
+### List - Reverse
+
+<cb>(reverse .<v>List<>)<>
+
+
+Reverses the elements in List.
+
+
+
+### List - Sort
+
+<cb>(sort .<v>List<> ".<v>field<>")<>
+
+
+Sorts elements in List by the field's value.
+
+
+
+### List - Sort, Reverse Order
+
+<cb>(sort .<v>List<> ".<v>field<>" "desc")<>
+
+
+Sorts elements in List by the field's value.
+
+"desc" - Tells sort to order in reverse
+@
+@ descending
+@ "desc"
+
+
+
+### List - Sort By Date
+
+<cb>(sort .<v>List<> ".Date")<>
+
+Example:
+
+<cb>{{ range (sort .Pages ".Date") }}<>
+
+
+Sorts pages by date.
+
+
+
+
+
+### Site Map - Get
+
+Site Map File:
+
+<cb>sitemap.xml<>
+
+Local URL:
+
+<l>http://localhost:1313/sitemap.xml<>
+
+
+The site map is documented in the sitemap.xml file.
+The file is saved in the root directory.
+@
+@ sitemap, sitemap.xml
 
 
 
@@ -468,13 +689,15 @@ Adds posts, catagories, and main website as menus.
 
 
 
-# Metadata
+# Front Matter
 
 Applies to all document types (html, md).
+@
+@ metadata
 
 
 
-### Metadata - Metadata Section
+### Front Matter - Front Matter Section
 
 <cb>---
 <v>...<>
@@ -483,10 +706,12 @@ Applies to all document types (html, md).
 Place at the start of the document.
 
 Works for html or markdown.
+@
+@ format, separator
 
 
 
-### Metadata - Title
+### Front Matter - Title
 
 <cb>---
 <v>title: "<v>Page Title<>"<>
@@ -494,7 +719,7 @@ Works for html or markdown.
 
 
 
-### Metadata - Date
+### Front Matter - Date
 
 <cb>---
 <v>date: <v>yyyy<>-<v>mm<>-<v>dd<>T<v>hh<>:<v>mm<>:<v>ss<><s>[<>+<s>|<>-<s>]<><v>hh<>:<v>mm<><>
@@ -511,7 +736,7 @@ Example:
 
 
 
-### Metadata - Catagories
+### Front Matter - Catagories
 
 <cb>---
 <v>catagories: [<v>catagory_1<>, <v>catagory_2<>]<>
@@ -531,7 +756,7 @@ Example:
 
 
 
-### Metadata - Tags
+### Front Matter - Tags
 
 <cb>---
 <v>tags: [markdown, example]<>
@@ -549,7 +774,7 @@ Example:
 
 
 
-### Metadata - Type
+### Front Matter - Type
 
 <cb>---
 <v>type: <v>type<><>
@@ -619,6 +844,878 @@ value = list_1[1]
 
 
 
+Page Types
+
+
+### Section Page
+
+The index page of a section.
+
+Template:
+
+<cb>list.html<>
+
+File:
+
+<cb>_index.md | _index.html<>
+
+Kind:
+
+<cb>section<>
+@
+@ kind, section, list.html, _index.md, _index.html
+
+
+
+### Single Page
+
+The page for a non index page.
+
+Template:
+
+<cb>single.html<>
+
+Kind:
+
+<cb>page<>
+@
+@ kind, page, single.html
+
+
+
+### Term Page
+
+The page that contains all the posts for a given term (e.g. tags)
+
+Template:
+
+<cb>term.html<>
+
+Kind:
+
+<cb>term<>
+
+Type:
+
+<cb><v>term_name<><>
+(e.g. tags)
+@
+@ term.html
+
+
+
+# Templates
+
+
+## Template Files and Folders
+
+
+### Template File / Folders - Basics
+
+Default Folder, Files:
+
+<cb>./
+└── layouts/
+    │
+    ├── _default/
+    │   │
+    │   ├── baseof.html
+    │   ├── single.html
+    │   └── list.html
+    │
+    └── partials/<>
+
+
+Custom Category Folder, Files
+
+<cb>./
+layouts/
+	<v>category<>/
+		single.html
+		list.html
+	partials/
+		<v>partial_1<>.html
+		<v>category<>/
+			<v>partial_1<>.html<>
+
+There are no rules as to what category or partial names can be.
+Do whatever you want.
+
+
+
+### Template Folder - _Default
+Hold default page templates for list and single pages.
+
+Location:
+
+<cb>layouts/
+└── _default/<>
+
+Files:
+
+<cb>layouts/
+└── _default/
+    │
+	├── baseof.html
+	├── single.html
+	└── list.html<>
+@
+@ default, layouts, layouts/_default
+
+
+
+### Template Folder - Partials
+Holds page sections for any and all page types.
+
+Partial paths are relative to the <c>layouts/partials<> folder.
+
+
+Location:
+
+<cb>layouts/
+└── partials/<>
+
+Files:
+
+<cb>layouts/
+└── partials/
+    │
+	├── <v>partial_1<>.html
+	└── <v>partial_2<>.html<>
+
+
+Include:
+
+<cb>{{ partial "<v>path<>/<v>partial_1<>.html"}}<>
+@
+@ layouts/partials
+
+
+### Template File - List.html
+
+<cb>list.html<>
+
+Defines the format for '<c>_index.md<>', the directory index file.
+
+The name is required by Hugo.
+@
+@ _index.md
+
+
+
+### Template File - Single.html
+
+<cb>single.html<>
+
+Defines the format for any single pages matching the category type.
+
+The name is required by Hugo.
+@
+@ blog, post, individual
+
+
+
+## Template Block
+@
+@ blocks, block-only, blocks-only.
+
+
+### Template Block - Define
+
+<cb>{{- define "<v>block_name<>" }}
+	<v>...<>
+{{ end }}<>
+
+
+
+### Template Block - Import
+
+<cb>{{ block "<v>block_name<>" . }}{{ end }}<>
+@
+@ use
+
+
+
+## Template Comment
+
+<cb>{{/* <#>Comment<> */}}<>
+
+A comment line.
+
+No spaces between {{ and /*, or */ and }}.
+@
+@ comments
+
+
+
+## Template Content
+The content of the source page.
+
+
+### Template Content - Include Page Content
+
+<cb>{{ .Content }}<>
+@
+@ .content
+
+
+
+## Template Partial
+
+A snippet of html stored in it's own file under /layouts/partials
+@
+@ part-only, partial-onsly
+
+
+### Template Partial - Define
+
+Create File:
+
+<cb>/layouts/partials/<v>path<>/<v>partial_file<>.html<>
+
+
+
+### Template Partial - Import
+
+<cb>{{ partial "<v>path<>/<v>partial_file<>.html" . }}<>
+
+
+Partial paths are relativet to the <c>layouts/partials<> folder.
+@
+@ include
+
+
+
+## Template Variable
+@
+@ vars, variables, $
+@ var-only, vars-only, variable-only, variables-only
+
+
+### Template Variable - Define
+
+<cb>{{ $<v>name<> := <v>value<> }}<>
+@
+@ :=, $
+@ set, create, instantiate
+
+
+
+### Template Variable - Use
+
+<cb>{{ $<v>name<> }}<>
+@
+@ refer, reference, access
+
+
+
+## Template Resource Variable
+@
+@ vars, variables, $
+@ var-only, vars-only, variable-only, variables-only
+
+
+### Template Resource Variable - Define
+
+<cb>{{ $<v>name<> := resources.Get "<v>path<>/<v>resource_file<>" }}<>
+
+Gets a resource from inside the '/assets' folder.
+@
+@ :=, resource.get
+@ set, create, instantiate
+
+
+
+### Template Resource Variable - Use
+
+<cb>{{ $<v>name<>.RelPermalink }}<>
+@
+@ refer, reference, access
+
+
+
+## Template Site User Variable
+@
+@ global, site-only, global-only
+
+
+### Site User Variable - Define
+
+In config.yaml:
+
+<cb>param:
+	<v>user_variable<>: <v>value<><>
+@
+@ config
+@ set, create, instantiate
+
+
+
+### Site User Variable - Use
+
+<cb>{{ .Site.Params.<v>user_variable<> }}<>
+
+
+
+## Template Page
+
+
+
+### Template Page - Range of Pages
+
+<cb>{{ range .Pages }}
+
+{{ end }}
+@
+@ all pages, .pages
+
+
+
+# Template Variables
+@
+@ vars-only, var-only, variable-only, variables-only
+
+
+## Template - Hugo (Site) Variables
+
+
+### Hugo Variable - Environment
+
+<cb>{{ hugo.environment }}<>
+
+
+Returns the environment.
+
+Values:
+
+<cb>development
+production<>
+@
+@ hugo.environment, .environment
+
+
+
+### Hugo Variable - Is Production
+
+<cb>{{ hugo.IsProduction }}<>
+
+
+Returns the environment.
+
+Values:
+
+<cb>development
+production<>
+@
+@ hugo.isproduction, .isproduction
+
+
+
+## Template - Page Variables
+@
+@ page-only, pages, pages-only, front matter
+
+
+
+### Page Variable - Page Content
+
+<cb>{{ .Content }}<>
+
+
+Returns the content of the page.
+
+
+Official Docs: <l https://gohugo.io/variables/page/#page-variables>Page Variables<>
+@
+@ .Content
+
+
+
+### Page Variable - Page Content as Text
+
+<cb>{{ .Plain }}<>
+
+
+Returns the text content of the page.
+
+All formatting is stripped away.
+
+
+Official Docs: <l https://gohugo.io/variables/page/#page-variables>Page Variables<>
+@
+@ .Plain
+
+
+
+### Page Variable - Page Date
+
+Page Front Matter:
+
+<cb>---
+date: <v>yyyy<>-<v>mm<>-<v>dd<>T<v>hh<>:<v>mm<>:<v>ss<>-<v>00<>:<v>00<>
+---<>
+
+Example:
+
+<cb>---
+date: <v>2001<>-<v>02<>-<v>03<>T<v>01<>:<v>02<>:<v>03<>-<v>05<>:<v>00<>
+---<>
+
+Template Variable:
+
+<cb>{{ .Date }}<>
+
+
+The date as defined in the page metadata (front matter).
+
+The page will not be rendered before this date.
+
+
+Official Docs: <l https://gohugo.io/variables/page/#page-variables>Page Variables<>
+@
+@ .date, date:
+
+
+
+### Page Variable - Page Description
+
+<cb>{{ .Description }}<>
+
+The description as defined in the page metadata (front matter).
+
+From Page Front Matter:
+
+<cb>---
+description: "<v>Page Description<>"
+---<>
+
+
+Official Docs: <l https://gohugo.io/variables/page/#page-variables>Page Variables<>
+@
+@ .Description
+
+
+
+### Page Variable - Page Kind
+
+<cb>{{ .Kind }}<>
+
+Returns the type of page.
+
+Valid Types:
+
+<in><table><col><c>home<><><col>A Home Page<>
+<col><c>page<><><col>A Senction Content Page (single page)<>
+<col><c>section<><><col>A Section Index Page (_index | list page)<>
+<col><c>taxonomy<> <><col>A Taxonomy Page<>
+<col><c>term<><><col>A Term Page<>
+<col><c>404<><><col>A 404 Error<><><>
+@
+@ type
+
+
+
+### Page Variable - Page Tags
+
+<cb>{{ .Params.Tags }}<>
+
+The type as defined in the page metadata (front matter).
+
+From Page Front Matter:
+
+<cb>---
+tags: [<v>tag-1<>, <v>"tag 2"<>]
+---<>
+
+
+Official Docs: <l https://gohugo.io/variables/page/#page-variables>Page Variables<>
+@
+@ .params, .tags, .params.tags
+
+
+
+### Page Variable - Page Title
+
+<cb>{{ .Title }}<>
+
+The title as defined in the page metadata (front matter).
+
+From Page Front Matter:
+
+<cb>---
+title: "<v>Page Title<>"
+---<>
+
+
+Official Docs: <l https://gohugo.io/variables/page/#page-variables>Page Variables<>
+@
+@ .Title
+
+
+
+### Page Variable - Page Type
+
+<cb>{{ .Type }}<>
+
+The type as defined by the page's location or the type from the page metadata (front matter).
+
+From Page Front Matter:
+
+<cb>---
+type: <v>post<>
+---<>
+
+
+Official Docs: <l https://gohugo.io/variables/page/#page-variables>Page Variables<>
+@
+@ .Type
+
+
+
+### Page Variable - Page URL
+
+<cb>{{ .Permalink }}<>
+
+Returns the full url of the page.
+
+
+Returns:
+
+<cb>https//thinkgo.io/news/2023.01-news/<>
+
+
+Official Docs: <l https://gohugo.io/variables/page/#page-variables>Page Variables<>
+@
+@ .Permalink
+
+
+
+### Page Variable - Page URL Path
+
+<cb>{{ .RelPermalink }}<>
+
+Returns the full path part of the url.
+
+
+For:
+
+<cb>https//thinkgo.io/news/2023.01-news/<>
+
+Returns:
+
+<cb>/news/2023.01-news/<>
+
+
+Official Docs: <l https://gohugo.io/variables/page/#page-variables>Page Variables<>
+@
+@ .RelPermalink, relative, permalink
+
+
+
+### Page Variable - Publish Date
+
+Page Front Matter:
+
+<cb>---
+publishdate: <v>yyyy<>-<v>mm<>-<v>dd<>T<v>hh<>:<v>mm<>:<v>ss<>-<v>00<>:<v>00<>
+---<>
+
+Example:
+
+<cb>---
+publishdate: <v>2001<>-<v>02<>-<v>03<>T<v>01<>:<v>02<>:<v>03<>-<v>05<>:<v>00<>
+---<>
+
+Template Variable:
+
+<cb>{{ .PublishDate }}<>
+
+
+The publish date as defined in the page metadata (front matter).
+
+The page will not be rendered before this date.
+Optional
+
+
+Official Docs: <l https://gohugo.io/variables/page/#page-variables>Page Variables<>
+@
+@ .publishdate, publishdate:
+
+
+
+### Page Variables - Online Reference
+
+<l>https://gohugo.io/variables/page/<>
+@
+@ official
+
+
+
+## Term Variables
+@
+@ term, tag, tags, catagory, catagories
+@ term-only, terms-only
+
+
+### Term Variable - Count
+
+<cb>{{ .Count }}<>
+
+Returns the number of times the term is referenced.
+
+
+
+### Term Variable - Name
+
+<cb>{{ .Name }}<>
+
+
+
+### Term Variable - Type
+
+<cb>{{ .Type }}<>
+
+The type of term (eg. tags).
+
+
+
+# Taxonomy
+@
+@ tax-only, taxonomony-only, taxonomies
+
+
+
+### Taxonomy - Define
+
+<*>Add to Site Config File
+Create Taxonomy Template<>
+
+
+Add - config.yaml:
+
+<cb>taxonomies:
+	<v>singular_name<>: <v>plural_name<><>
+
+Template Directory:
+
+<cb>/layouts/taxonomy/<v>singular_name<>.html<>
+
+
+Config File - Use lower case name.
+Config File - Add the singular name, ":", then the plural name.
+@
+@ create
+@ taxonomies:
+
+
+
+### Taxonomy - Access In Block
+
+<cb>{{ define "<v>block<>" }}
+	{{ .Params.<v>plural_name<> }}
+{{ end }}<>
+
+<cb>{{ define "<v>block<>" }}
+	{{ range $index, $value := .Params.<v>plural_name<> }}{{- if $index -}}, {{ end -}}{{ $value }}{{ end }}
+{{ end }}<>
+@
+@ loop thourgh, values, items
+
+
+
+### Taxonomy - Set in Front Matter
+
+<cb>---
+<v>plural_name<>: [<v>value_1<>, <v>value_2<>]
+---<>
+
+<cb>---
+<v>plural_name<>: ["<v>value_1<>", "<v>value_2<>"]
+---<>
+@
+@ page metadata, value
+
+
+
+# Operators
+@
+@ Operators, Operations, Expressions
+@ op-only, operator-only, operators-only
+
+
+### Operator - General Form
+
+<cb><v>operator<> <v>value_1<> <v>value_2<><>
+
+
+## Comparison Operators
+
+<cb>eq
+ne
+
+
+
+## Logical Operators
+@
+@ Boolean, and, or, not, negation, &&, ||, !
+
+
+### And
+
+<cb>and <v>value_1<> <v>value_2<><>
+
+
+
+### Or
+
+<cb>or <v>value_1<> <v>value_2<><>
+
+
+
+### Not
+
+<cb>not <v>condition<><>
+
+
+Example:
+
+<cb>{{ if not (or <v>$value_1<> <v>$value_2<> ) }}
+	<v>...<>
+{{ end }}<>
+
+
+
+## Tests
+
+
+
+### Has Value
+
+<cb>{{ if <v>value<> }}
+	<v>...<>
+{{ end }}<>
+@
+@ exists
+
+
+
+# Control Statements
+@
+@ statements, flow
+@ control-only, control-structure-only, control-structures-only
+@ control-statements-only
+
+
+### If
+
+<cb>{{ if <v>condition<> }}
+	<v>...<>
+{{ else if <v>condition<> }}
+	<v>...<>
+{{ else }}
+	<v>...<>
+{{ end }}<>
+@
+@ basics, conditional
+@ then, else, elif, elseif
+@ if-only, if-else-only
+
+
+
+### Range
+
+<cb>{{ range $<v>item<> := <v>items<> }}
+	<v>...<> {{ $<v>item<> }} <v>...<>
+{{ end }}<>
+@
+@ ranges, range-only
+@ for, for-only, for-each-only
+
+
+
+### Range - Key Values
+
+<cb>{{ range $<v>key<>, $<v>item<> := <v>items<> }}
+	<v>...<> {{ $<v>item<> }} <v>...<>
+{{ end }}<>
+
+Keys are the key of the items.
+If no keys, then the enumerated values 0 ... count-1 are returned
+@
+@ ranges, range-only
+@ for, for-only, for-each-only
+@ enumerate, enumerated
+
+
+
+# Types
+
+
+### Boolean
+
+<cb>true
+false<>
+
+Boolean
+@
+@ true, false
+
+
+### String
+
+<cb>"<v>A String<>"<>
+
+<m>Confirm quotes are always required (maybe ok to skip for no-space strings?).<>
+
+String
+@
+@ ""
+
+
+
+# Formatting
+@
+@ format-only, formatting-only
+
+
+## Format Date
+
+
+### Format Date - YYYY-MM-DD
+
+<cb>{{ <v>variable<>."2006-01-02" }}<>
+
+
+Returns the date in "yyyy-mm-dd" format.
+
+
+No shit! This really is the crazy ass way this is done!!
+
+Use only <c>"2006-01-02"<>. Will have unexpected results if you use other values!!
+
+Official Doc: <l https://gohugo.io/functions/format/>Format Command<>
+@
+@ year, month, day
+
+
+### Format Date - Month Day, Year 
+
+<cb>{{ <v>variable<>.Format "January 2, 2006" }}<>
+
+
+Returns the date in "month d, yyyy" format.
+
+
+No shit! What rocket scientist thought this up‽‽
+
+Use only <c>"January 2, 2006""<>. Will have unexpected results if you use other values!
+
+Official Doc: <l https://gohugo.io/functions/format/>Format Command<>
+@
+@ year, month, day, yyyy
+
+
+
 # Acronyms
 
 
@@ -661,9 +1758,37 @@ See: <l>https://gohugo.io/content-management/front-matter/<>
 
 
 
+### Server Port
+Local Port 1313
+
+Hugo starts locally on port 1313.
+
+<l>http://localhost:1313/<>
+@
+@ default, local
+
+
+
 ### Taxonomy
 Hugo's system for creating custom catagories to classify content.
 
 See: <l>https://gohugo.io/content-management/taxonomies/<>
 
+
+
+### Taxonomy - Built In
+Tags and catagories are built in by default.
+
+
+Front Matter (Page Metadata):
+
+<cb>catagory: [<v>catagory_1<>, <v>catagory_2<>]
+tag: [<v>tag_1<>, <v>tag_2<>]<>
+
+URL:
+
+<cb>/tags
+/catagories<>
+@
+@ tags, catagory, catagories
 
